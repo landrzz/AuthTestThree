@@ -10,6 +10,8 @@ namespace AuthTestThree.Views
     {
         TodoItemManager manager;
 
+        bool authenticated = true;
+
         public TodoList()
         {
             InitializeComponent();
@@ -35,7 +37,10 @@ namespace AuthTestThree.Views
             base.OnAppearing();
 
             // Set syncItems to true in order to synchronize the data on startup when running in offline mode
-            await RefreshItems(true, syncItems: true);
+            if (authenticated == true)
+            {
+                await RefreshItems(true, syncItems: true);
+            }
         }
 
         // Data methods

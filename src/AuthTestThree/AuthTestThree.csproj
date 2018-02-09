@@ -19,6 +19,7 @@
     <PackageReference Include="Mobile.BuildTools" Version="1.0.0" PrivateAssets="all" />
     <PackageReference Include="Prism.QuickStart.MFractor.Config" Version="1.0.3" PrivateAssets="all" />
     <PackageReference Include="Microsoft.Azure.Mobile.Client" Version="4.0.2" />
+    <PackageReference Include="sameerIOTApps.Plugin.SecureStorage" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,5 +32,6 @@
 
   <ItemGroup>
     <Folder Include="Managers\" />
+    <Folder Include="Interfaces\" />
   </ItemGroup>
 </Project>

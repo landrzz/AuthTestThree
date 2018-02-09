@@ -10,6 +10,7 @@ using Prism.DryIoc;
 using Prism.Logging;
 using Xamarin.Forms;
 using DebugLogger = AuthTestThree.Services.DebugLogger;
+using AuthTestThree.Interfaces;
 
 namespace AuthTestThree
 {
@@ -21,6 +22,9 @@ namespace AuthTestThree
          * This imposes a limitation in which the App class must have a default constructor. 
          * App(IPlatformInitializer initializer = null) cannot be handled by the Activator.
          */
+
+        public static IAuthenticate Authenticator { get; private set; }
+
         public App() 
             : this(null)
         {
@@ -39,6 +43,11 @@ namespace AuthTestThree
             await NavigationService.NavigateAsync("SplashScreenPage");
         }
 
+        public static void Init(IAuthenticate authenticator)
+        {
+            Authenticator = authenticator;
+        }
+
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             // Register the Popup Plugin Navigation Service
@@ -55,6 +64,7 @@ namespace AuthTestThree
             containerRegistry.RegisterForNavigation<SplashScreenPage>();
             containerRegistry.RegisterForNavigation<TodoItemDetail>();
             containerRegistry.RegisterForNavigation<TodoList>();
+            containerRegistry.RegisterForNavigation<LoginPage>();
         }
 
         protected override void OnStart()

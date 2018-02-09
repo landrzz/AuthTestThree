@@ -20,10 +20,20 @@ namespace AuthTestThree.ViewModels
             // Simulated long running task. You should remove this in your app.
             await Task.Delay(4000);
 
+            var client = TodoItemManager.DefaultManager.CurrentClient;
+
+            if (client.CurrentUser != null)
+            {
+                await _navigationService.NavigateAsync("NavigationPage/TodoList");
+            } else
+            {
+                await _navigationService.NavigateAsync("/LoginPage");
+            }
+
             // After performing the long running task we perform an absolute Navigation to remove the SplashScreen from
             // the Navigation Stack.
             //await _navigationService.NavigateAsync("/NavigationPage/MainPage?todo=Item1&todo=Item2&todo=Item3");
-            await _navigationService.NavigateAsync("/NavigationPage/TodoList");
+
 
         }
     }
