@@ -12,6 +12,7 @@ using AuthTestThree.Interfaces;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.MobileServices;
 using Android.Webkit;
+using Plugin.SecureStorage;
 
 namespace AuthTestThree.Droid
 {
@@ -30,6 +31,8 @@ namespace AuthTestThree.Droid
 
             base.OnCreate(savedInstanceState);
 
+            SecureStorageImplementation.StoragePassword = Build.Id;
+
             global::Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.SetFlags("FastRenderers_Experimental");
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
@@ -41,6 +44,8 @@ namespace AuthTestThree.Droid
 
             Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
             App.Init((IAuthenticate)this);
+
+
 
             LoadApplication(new App(new AndroidInitializer()));
         }

@@ -91,7 +91,7 @@ namespace AuthTestThree.Views
             todoList.SelectedItem = null;
         }
 
-        // http://developer.xamarin.com/guides/cross-platform/xamarin-forms/working-with/listview/#context
+       
         public async void OnComplete(object sender, EventArgs e)
         {
             var mi = ((MenuItem)sender);
@@ -99,7 +99,7 @@ namespace AuthTestThree.Views
             await CompleteItem(todo);
         }
 
-        // http://developer.xamarin.com/guides/cross-platform/xamarin-forms/working-with/listview/#pulltorefresh
+
         public async void OnRefresh(object sender, EventArgs e)
         {
             var list = (ListView)sender;

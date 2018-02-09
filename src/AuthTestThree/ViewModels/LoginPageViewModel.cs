@@ -5,12 +5,12 @@ using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
 using System.Diagnostics;
+using AuthTestThree.Services;
 
 namespace AuthTestThree.ViewModels
 {
     public class LoginPageViewModel : ViewModelBase
     {
-        bool authenticated = false;
 
         public LoginPageViewModel(INavigationService navigationService, IPageDialogService pageDialogService, IDeviceService deviceService) 
             : base(navigationService, pageDialogService, deviceService)
@@ -20,28 +20,29 @@ namespace AuthTestThree.ViewModels
 
         public DelegateCommand LoginCommand { get; }
 
-        public override async void OnNavigatedTo(NavigationParameters parameters)
+        public override void OnNavigatedTo(NavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
 
-            if (authenticated)
-            {
-                await _navigationService.NavigateAsync("/NavigationPage/TodoPage");
-            }
+            //if (authenticated)
+            //{
+            //    await _navigationService.NavigateAsync("/NavigationPage/TodoPage");
+            //}
         }
 
         private async void OnLoginWorkedCommandExecute()
         {
             try
             {
-                if (App.Authenticator != null)
-                {
-                    authenticated = await App.Authenticator.AuthenticateAsync();
-                }
-
-                if (authenticated)
+                var loginservice = new LoginService();
+                var result = await loginservice.LoginAsync();
+                if (result)
                 {
                     await _navigationService.NavigateAsync("/NavigationPage/TodoList");
+                }
+                else
+                {
+                    await _pageDialogService.DisplayAlertAsync("Didn't Work", "something went wrong", "OK");
                 }
             } 
             catch (InvalidOperationException ex)

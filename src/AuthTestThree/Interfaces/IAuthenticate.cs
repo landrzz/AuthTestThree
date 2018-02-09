@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.WindowsAzure.MobileServices;
 
 namespace AuthTestThree.Interfaces
 {
     public interface IAuthenticate
     {
-        Task<bool> AuthenticateAsync();
+        Task<Tuple<bool, MobileServiceUser>> AuthenticateAsync();
 
-        Task<bool> LogoutAsync();
+        Task<Tuple<bool, MobileServiceUser>> LogoutAsync();
     }
 }
