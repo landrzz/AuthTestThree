@@ -14,6 +14,7 @@ namespace AuthTestThree.Models
         string id;
         string name;
         bool done;
+		string owner;
 
         [JsonProperty(PropertyName = "id")]
         public string Id
@@ -38,5 +39,12 @@ namespace AuthTestThree.Models
 
         [Version]
         public string Version { get; set; }
+
+        [JsonProperty(PropertyName = "own")]
+        public string Owner
+		{
+			get { return owner; }
+			set { owner = value; }
+		}
     }
 }

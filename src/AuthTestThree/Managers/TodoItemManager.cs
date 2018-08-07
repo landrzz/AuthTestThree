@@ -90,6 +90,7 @@ namespace AuthTestThree
                     .Where(todoItem => !todoItem.Done)
                     .ToEnumerableAsync();
 
+				Debug.WriteLine("ToDo Items Refreshed");
                 return new ObservableCollection<TodoItem>(items);
             }
             catch (MobileServiceInvalidOperationException msioe)

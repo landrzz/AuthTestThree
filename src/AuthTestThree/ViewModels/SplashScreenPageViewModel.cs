@@ -42,7 +42,7 @@ namespace AuthTestThree.ViewModels
             {
                 string userId = CrossSecureStorage.Current.GetValue(userIdKey);
                 string token = CrossSecureStorage.Current.GetValue(tokenKey);
-
+				App.OwnerID = userId;
                 TodoItemManager.DefaultManager.CurrentClient.CurrentUser = new MobileServiceUser(userId)
                 {
                     MobileServiceAuthenticationToken = token

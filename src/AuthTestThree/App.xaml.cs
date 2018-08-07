@@ -24,6 +24,7 @@ namespace AuthTestThree
          */
 
         public static IAuthenticate Authenticator { get; private set; }
+        public static string OwnerID { get; set; }
 
         public App() 
             : this(null)

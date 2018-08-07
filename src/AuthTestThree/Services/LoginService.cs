@@ -28,6 +28,7 @@ namespace AuthTestThree.Services
                 string userId = CrossSecureStorage.Current.GetValue(userIdKey);
                 string token = CrossSecureStorage.Current.GetValue(tokenKey);
 
+                //make sure token isnt expired
                 if (!IsTokenExpired(token))
                 {
 
@@ -38,7 +39,19 @@ namespace AuthTestThree.Services
                     return true;
                 }
 
+                // Expired; refresh it.
+                try
+                {
+                    // Only works with Google, MSA and Azure.
+                    await Xamarin.Forms.DependencyService.Get<IAuthenticate>().AuthenticateAsync();
+                }
+                catch
+                {
+                    // Failed - clear local user cache.
+                    await Xamarin.Forms.DependencyService.Get<IAuthenticate>().LogoutAsync();
+                }
             }
+
 
             //var worked = await Xamarin.Forms.DependencyService.Get<IAuthenticate>().AuthenticateAsync();
             //if (App.Authenticator != null)
@@ -55,10 +68,10 @@ namespace AuthTestThree.Services
             {
                 CrossSecureStorage.Current.SetValue(userIdKey, user.UserId);
                 CrossSecureStorage.Current.SetValue(tokenKey, user.MobileServiceAuthenticationToken);
+				App.OwnerID = user.UserId;
             }
 
             return authenticated;
-          
         }
 
         private bool IsTokenExpired(string token)

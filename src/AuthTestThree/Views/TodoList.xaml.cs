@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AuthTestThree.Models;
 using Xamarin.Forms;
+using System.Diagnostics;
+using Microsoft.WindowsAzure.MobileServices;
 
 namespace AuthTestThree.Views
 {
@@ -47,6 +49,7 @@ namespace AuthTestThree.Views
         async Task AddItem(TodoItem item)
         {
             await manager.SaveTaskAsync(item);
+			Debug.WriteLine($"{item} - task added. list needs refresh.");
             todoList.ItemsSource = await manager.GetTodoItemsAsync();
         }
 
@@ -56,10 +59,10 @@ namespace AuthTestThree.Views
             await manager.SaveTaskAsync(item);
             todoList.ItemsSource = await manager.GetTodoItemsAsync();
         }
-
+        
         public async void OnAdd(object sender, EventArgs e)
         {
-            var todo = new TodoItem { Name = newItemName.Text };
+            var todo = new TodoItem { Name = newItemName.Text, Owner = App.OwnerID };
             await AddItem(todo);
 
             newItemName.Text = string.Empty;

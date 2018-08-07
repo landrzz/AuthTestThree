@@ -81,6 +81,7 @@ namespace AuthTestThree.iOS
                 var logoutAlert = UIAlertController.Create("Logout failed", ex.Message, UIAlertControllerStyle.Alert);
                 logoutAlert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Cancel, null));
                 UIApplication.SharedApplication.KeyWindow.RootViewController.PresentViewController(logoutAlert, true, null);
+				success = false;
             }
             return new Tuple<bool, MobileServiceUser>(success, user);
         }
